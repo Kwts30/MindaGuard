@@ -2,4 +2,19 @@
 <resources>
 
     <style name="Theme.MindaGuard" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- Insert inside <resources> in your themes.xml -->
+    <style name="Theme.MindaGuard.Splash" parent="Theme.SplashScreen">
+        <!-- background color behind the icon -->
+        <item name="windowSplashScreenBackground">@color/white</item>
+
+        <!-- the drawable shown in the splash (use your icon drawable) -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/icon_only</item>
+
+        <!-- animation duration in ms (optional) -->
+        <item name="windowSplashScreenAnimationDuration">300</item>
+
+        <!-- the theme to switch to after the splash is dismissed -->
+        <item name="postSplashScreenTheme">@style/Theme.MindaGuard</item>
+    </style>
 </resources>
