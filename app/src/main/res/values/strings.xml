@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MindaGuard</string>
+    <string name="splash_logo_description">MindaGuard logo</string>
+    <string name="splash_tagline">Local disaster alerts and maps</string>
 </resources>
