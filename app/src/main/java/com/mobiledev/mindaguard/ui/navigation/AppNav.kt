@@ -23,10 +23,14 @@ import com.mobiledev.mindaguard.ui.components.PillBottomBar
 import com.mobiledev.mindaguard.ui.components.PillTab
 import com.mobiledev.mindaguard.ui.screens.AlertScreen
 import com.mobiledev.mindaguard.ui.screens.EmergencyScreen
+import com.mobiledev.mindaguard.ui.screens.LoginScreen
 import com.mobiledev.mindaguard.ui.screens.MapScreen
 import com.mobiledev.mindaguard.ui.screens.MenuScreen
+import com.mobiledev.mindaguard.ui.screens.RegisterScreen
 
 sealed class Screen(val route: String) {
+    object Login : Screen("login")
+    object Register : Screen("register")
     object Home : Screen("home")
     object Map : Screen("map")
     object Menu : Screen("menu")
@@ -73,12 +77,36 @@ fun AppNav() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screen.Login.route,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .background(MaterialTheme.colorScheme.background)
         ) {
+            composable(Screen.Login.route) {
+                LoginScreen(
+                    onLoginSuccess = {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(Screen.Login.route) { inclusive = true }
+                        }
+                    },
+                    onNavigateToRegister = {
+                        navController.navigate(Screen.Register.route)
+                    }
+                )
+            }
+
+            composable(Screen.Register.route) {
+                RegisterScreen(
+                    onRegisterSuccess = {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(Screen.Login.route) { inclusive = true }
+                        }
+                    },
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
+
             composable(Screen.Home.route) {
                 MainPageScreen(
                     onAlertClick = { navController.navigate(Screen.Alerts.route) },
